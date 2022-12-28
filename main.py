@@ -1,13 +1,20 @@
 from tkinter import *
+from tkinter import messagebox
 
 
 def calculator(key):
     if key == 'C':
         entry.delete(0, END)
     elif key == '=':
-        result = entry.get()
+        expression = entry.get()
         entry.delete(0, END)
-        entry.insert(END, eval(result))
+
+        try:
+            result_expression = eval(expression)
+            entry.insert(END, result_expression)
+        except ZeroDivisionError:
+            entry.delete(0, END)
+            messagebox.showerror('ERROR', 'ZeroDivisionError')
     else:
         entry.insert(END, key)
 
